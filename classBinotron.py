@@ -34,6 +34,7 @@ class Apprenant:
         for x in learners :
             self.learners[x] = learners[x]
 
+
 class Promo:
     def __init__(self) :
         self.member = []
