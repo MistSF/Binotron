@@ -4,18 +4,18 @@ from classBinotron import Apprenant
 import pandas as pd
 
 def savePromoJSON(promo) :
+    """
+        function to save promo in promo.json 
+    """
     test = promo.toJSON()
     with open('./promo.json', 'w') as file :
         file.write(test)
         file.close()
 
-def getHistory(history) :
-    for x in history :
-        for group in x :
-            for learner in group :
-                print(learner, sep=", ")
-
 def printGroups(groups) :
+    """
+        show group
+    """
     for i, group in enumerate(groups) :
         learners = ""
         for learner in group :
@@ -23,6 +23,9 @@ def printGroups(groups) :
         print("groupe " + str(i) + " : " + str(learners))
 
 def saveGroups(promo, historyGroup, groups) :
+    """
+        update learners attribute in promo.json to keep how many times learners as been grouped with the others
+    """
     for group in groups :
         members = []
         for learner in group :
@@ -35,6 +38,9 @@ def saveGroups(promo, historyGroup, groups) :
     savePromoJSON(promo)
 
 def getMembers(group, tmp) :
+    """
+        get members with the less value with the actual group
+    """
     candidat = []
     listName = []
     saveName = None
@@ -62,6 +68,9 @@ def getMembers(group, tmp) :
             tmp.remove(learner)
 
 def getHistoryGroup(promo, size=2):
+    """
+        create group based on history
+    """
     if size >= len(promo.getMember()) / 2 :
         size = len(promo.getMember()) // 2
     nb_group = len(promo.getMember()) // size
@@ -87,39 +96,10 @@ def getHistoryGroup(promo, size=2):
 
     return groups
 
-def getGroupsTest(promo, group_size, sort_by = None):
-    copy_promo = list(promo.getMember())
-    if sort_by == 3 or sort_by == 2:
-        copy_promo.sort(key=lambda user: user.skill)
-    else :
-        random.shuffle(copy_promo)
-    groups = np.array_split(np.asarray(copy_promo), round(len(promo.getMember()) / group_size))
-    
-    if sort_by == 2:
-        desc = False
-        groups = []
-        nb_group = len(copy_promo) // group_size
-        for i in range(nb_group):
-            groups.append([])
-        
-        grp = 0
-        while len(copy_promo) > 0:
-            if desc :
-                groups[grp].append(copy_promo[0])
-                copy_promo.pop(0)
-            else :
-                groups[grp].append(copy_promo[len(copy_promo)-1])
-                copy_promo.pop(len(copy_promo) -1)
-            
-            if grp >= nb_group -1:
-                grp = 0
-                desc = not desc
-            else :
-                grp = grp + 1
-            
-    return groups
-
 def getGroups(promo, group_size, sort_by = None):
+    """
+        Get groups filtered by skills
+    """
     copy_promo = list(promo.getMember())
     if sort_by == 3 or sort_by == 2:
         copy_promo.sort(key=lambda user: user.skill)
@@ -141,6 +121,9 @@ def getGroups(promo, group_size, sort_by = None):
     return groups
 
 def helps():
+    """
+        show available command
+    """
     print("help   : print available commands") # OK
     print("add    : add new learner") # OK
     print("edit   : edit learner") #OK
@@ -154,11 +137,17 @@ def helps():
     print("")
 
 def printLearners(promo) :
+    """
+        show learners in promo
+    """
     for x in promo.getMember():
         learnSeries = pd.Series(x.learners)
         print(x.name, x.skill, "\n", learnSeries, "\n")
 
 def removeLearner(promo) :
+    """
+        remove learner from promo
+    """
     printLearners(promo)
     print("Select name :")
     name = input()
@@ -171,6 +160,9 @@ def removeLearner(promo) :
     savePromoJSON(promo)
 
 def edit(promo):
+    """
+        edit learner in promo
+    """
     for x in promo.getMember() :
         print(x.name)
     
@@ -201,6 +193,9 @@ def edit(promo):
     print("Done\n")
 
 def addLearner(promo):
+    """
+        Add learner in promo
+    """
     print('Enter the new name:')
     name = input()
     dontAdd = True
