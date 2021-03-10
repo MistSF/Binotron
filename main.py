@@ -3,6 +3,8 @@ import os
 import json
 import functionGroup as fg
 from classBinotron import Promo, Apprenant
+import pytest
+import re
 
 promo = Promo()
 listdir = os.listdir('./')
@@ -52,8 +54,7 @@ while run :
     elif inp == "add":
         fg.addLearner(promo)
     elif inp == "create comp":
-        print("group size :")
-        size = input()
+        size = fg.getSize()
         print("add filtre : \n1: none\n2 : Heterogene\n3 : Homogene")
         filtre = input()
         groups = fg.getGroups(promo, int(size), int(filtre))
@@ -65,9 +66,8 @@ while run :
             historyGroup.append(groups)
             print("group saved\n")
     elif inp == "create history":
-        print("enter group size :")
-        size = input()
-        groups = fg.getHistoryGroup(promo, int(size))
+        size = fg.getSize()
+        groups = fg.getHistoryGroup(promo, size)
         fg.printGroups(groups)
         print("save groups ? (Y/N)")
         rep = input().lower()

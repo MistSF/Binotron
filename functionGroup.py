@@ -2,6 +2,7 @@ import numpy as np
 import random
 from classBinotron import Apprenant
 import pandas as pd
+import re
 
 def savePromoJSON(promo) :
     """
@@ -208,3 +209,17 @@ def addLearner(promo):
                 name = input()
     Apprenant(promo, name)
     savePromoJSON(promo)
+
+def getSize() :
+    size_state = True
+    while size_state == True:
+        print("enter group size :")
+        size = input()
+        size_state = False
+        size = re.findall("[0-9]", size)
+        if len(size) <= 0 :
+            size_state = True
+    valret = ""
+    for x in size :
+        valret = valret + x
+    return int(valret)
