@@ -211,6 +211,9 @@ def addLearner(promo):
     savePromoJSON(promo)
 
 def getSize() :
+    """
+        get group size with type verification
+    """
     size_state = True
     while size_state == True:
         print("enter group size :")
