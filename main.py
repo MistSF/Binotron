@@ -19,38 +19,19 @@ if not exist :
 with open('./promo.json', 'r') as file :
     promo_data = json.load(file)
 
-print(promo_data["member"][0]["skill"], promo_data["member"][0]["learners"])
-
 for x in promo_data["member"] :
     App = Apprenant(promo, x["name"])
-    App.setAllData(x["skill"], x["learners"])
-    promo.addMember(App)
 
-print(promo.member[0].skill, promo.member[0].learners)
+for x in promo_data["member"] :
+    for y in promo.member :
+        if y.name == x["name"] :
+            y.setAllData(x["skill"], x["learners"])
 
 historyGroup = []
 groups = []
 
 run = True
 groups = []
-
-
-"""Apprenant("Antoine Dewynter", 2)
-Apprenant("ArthurT", 3)
-Apprenant("CamilleS", 1)
-Apprenant("Farid Berrabah", 2)
-Apprenant("Giovanny M", 3)
-Apprenant("Joséphine" ,3)
-Apprenant("Julien Vansteenkiste", 2)
-Apprenant("Kevin Faby", 3)
-Apprenant("Marie De smedt", 3)
-Apprenant("Mickael Fayeulle", 3)
-Apprenant("Phichet", 3)
-Apprenant("Rachid K.", 2)
-Apprenant("Tanguy Meyer", 2)
-Apprenant("vivien", 3)
-Apprenant("kevinb", 3)
-Apprenant("Hatice", 3)"""
 
 print("Welcome in group generator 0.1\nsend help to see our commands !\nHave fun\n")
 
